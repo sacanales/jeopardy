@@ -67,16 +67,21 @@ def game():
 @app.route('/question/<category>/<int:value>', methods=['GET', 'POST'])
 def question(category, value):
     if request.method == 'POST':
-        team = request.form['team']
-        correct = 'correct' in request.form
-        if correct:
+        team = request.form.get('team')
+        correct = request.form.get('correct') == 'true'
+        
+        # Check if the response was from the "Nobody" button and handle accordingly
+        if team != "Nobody" and correct:
+            # Update team score if correct
             session['teams'][team] += value
-            session['answered_questions'].append(f"{category}_{value}")
-            session.modified = True
+        # Mark the question as answered regardless of who answered or if it was correct
+        session['answered_questions'].append(f"{category}_{value}")
+        session.modified = True
         return redirect(url_for('game'))
     
     question, answer, explanation = categories[category][value]
     return render_template('question.html', category=category, value=value, question=question, answer=answer, explanation=explanation, teams=session['teams'])
+
 
 if __name__ == '__main__':
     app.run(debug=True)

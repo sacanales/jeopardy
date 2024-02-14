@@ -63,6 +63,7 @@
         {% for team_name, score in teams.items() %}
             <button class="team-button" onclick="submitForm('{{ team_name }}')">{{ team_name }} Correct</button>
         {% endfor %}
+        <button class="button" onclick="submitForm('Nobody', false)">Nobody Correct</button>
     </div>
 
     <script>
