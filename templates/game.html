@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeopardy Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #02075d; /* Deep Jeopardy blue for the background */
+            color: white; /* White text for better readability */
+            text-align: center; /* Centering the content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .teams {
+            display: flex;
+            justify-content: center;
+            font-size: 24px; /* Enlarging the team names and scores */
+            margin-bottom: 20px;
+        }
+        .team-name {
+            margin: 0 20px; /* Spacing between team names and scores */
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Adjust based on the number of categories */
+            gap: 10px;
+            width: 90%;
+            max-width: 1200px; /* Adjust based on your preference */
+            margin-top: 20px; /* Added space above the categories */
+        }
+        .containerteams {
+            justify-content: center;
+        }
+        .category {
+            display: flex;
+            flex-direction: column;
+            background-color: #007BFF;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .category h3 {
+            margin: 0 0 10px 0;
+            background-color: #f0e130;
+            color: #02075d;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .question-value, .question-value.answered {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .question-value {
+            background-color: #f0e130;
+            color: #02075d;
+        }
+        .question-value.answered {
+            background-color: #ccc;
+            color: #666;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="teams">
+        {% for team, score in teams.items() %}
+        <div class="team-name">{{ team }}: {{ score }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        {% for category, questions in categories.items() %}
+        <div class="category">
+            <h3>{{ category }}</h3>
+            {% for value, question in questions.items() %}
+            {% if category ~ "_" ~ value|string not in answered_questions %}
+            <a class="question-value" href="{{ url_for('question', category=category, value=value) }}">${{ value }}</a>
+            {% else %}
+            <span class="question-value answered">${{ value }}</span>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

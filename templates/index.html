@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jeopardy Game</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif; /* Kabel-like fonts are not widely available for web, Arial is a clean alternative */
+            background-color: #02075d; /* Deep blue background similar to the Jeopardy! game board */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #007BFF;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"] {
+            width: 88%;
+            padding: 10px;
+            display: flex;
+            border: 1px solid #fff; /* White border for inputs */
+            background-color: #02075d; /* Matching the body's background color */
+            color: white; /* White text for visibility */
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #f0e130; /* Bright yellow for the submit button, reminiscent of the Jeopardy! logo */
+            color: #02075d; /* Deep blue text to match the background */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px; /* Added margin for spacing */
+        }
+        input[type="submit"]:hover {
+            background-color: #c7b800; /* A darker gold on hover for visual feedback */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="post">
+            <div class="form-group">
+                <label for="team1">Team 1 Name:</label>
+                <input type="text" id="team1" name="team1">
+            </div>
+            <div class="form-group">
+                <label for="team2">Team 2 Name:</label>
+                <input type="text" id="team2" name="team2">
+            </div>
+            <input type="submit" value="Start Game">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #02075d; /* Deep Jeopardy blue for the background */
+            color: white; /* White text for better readability */
+            text-align: center; /* Centering the content */
+            padding-top: 50px; /* Adding some padding at the top */
+        }
+        h2, p {
+            margin: 20px 0; /* Spacing around the question and header */
+        }
+        .button, .team-button {
+            background-color: #f0e130; /* Jeopardy gold for buttons */
+            color: #02075d; /* Deep blue text to maintain readability */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold; /* Making the text a bit bolder to stand out */
+            margin: 10px; /* Space between buttons */
+        }
+        .button:hover, .team-button:hover {
+            background-color: #c7b800; /* A darker gold on hover for a subtle effect */
+        }
+        .team-buttons {
+            display: flex;
+            justify-content: center; /* Centering the team buttons */
+        }
+        .answer, .explanation {
+            display: none;
+            margin-top: 20px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .explanation {
+            color: #f0e130; /* Bright Jeopardy gold for the explanation text */
+            background-color: #333; /* Dark background for contrast */
+            border: 2px solid #f0e130; /* Border to make the explanation stand out */
+        }
+    </style>
+</head>
+<body>
+    <h2>{{ category }} for ${{ value }}</h2>
+    <p>{{ question }}</p>
+    <button class="button" onclick="showAnswerAndExplanationButton()">Show Answer</button>
+    
+    <div id="answer" class="answer">
+        <p>{{ answer }}</p>
+        <button id="explanationButton" class="button" onclick="showExplanation()" style="display:none;">Explanation</button>
+    </div>
+    
+    <!-- Corrected placement for the explanation div -->
+    <div id="explanation" class="explanation">
+        <p>{{ explanation }}</p>
+    </div>
+
+    <div class="team-buttons">
+        {% for team_name, score in teams.items() %}
+            <button class="team-button" onclick="submitForm('{{ team_name }}')">{{ team_name }} Correct</button>
+        {% endfor %}
+    </div>
+
+    <script>
+        function showAnswerAndExplanationButton() {
+            var answerDiv = document.getElementById('answer');
+            answerDiv.style.display = 'block';
+            
+            var explanationButton = document.getElementById('explanationButton');
+            explanationButton.style.display = 'inline-block'; // Make the Explanation button visible
+        }
+
+        function showExplanation() {
+            var explanationDiv = document.getElementById('explanation');
+            explanationDiv.style.display = 'block'; // Show the explanation content
+        }
+
+        function submitForm(teamName) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = window.location.pathname;
+
+            var teamInput = document.createElement('input');
+            teamInput.type = 'hidden';
+            teamInput.name = 'team';
+            teamInput.value = teamName;
+            form.appendChild(teamInput);
+
+            var correctInput = document.createElement('input');
+            correctInput.type = 'hidden';
+            correctInput.name = 'correct';
+            correctInput.value = 'true';
+            form.appendChild(correctInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+</html>
