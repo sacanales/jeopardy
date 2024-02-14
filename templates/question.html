@@ -44,11 +44,14 @@
             background-color: #333; /* Dark background for contrast */
             border: 2px solid #f0e130; /* Border to make the explanation stand out */
         }
+        .question {
+            font-size: 36px; /* or larger, depending on your preference */
+        }
     </style>
 </head>
 <body>
     <h2>{{ category }} for ${{ value }}</h2>
-    <p>{{ question }}</p>
+    <p class="question">{{ question }}</p>
     <button class="button" onclick="showAnswerAndExplanationButton()">Show Answer</button>
     
     <div id="answer" class="answer">
