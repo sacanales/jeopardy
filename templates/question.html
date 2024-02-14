@@ -12,8 +12,11 @@
             text-align: center; /* Centering the content */
             padding-top: 50px; /* Adding some padding at the top */
         }
-        h2, p {
+        h2, .question {
             margin: 20px 0; /* Spacing around the question and header */
+        }
+        .question {
+            font-size: 28px; /* Smaller font size for the question */
         }
         .button, .team-button {
             background-color: #f0e130; /* Jeopardy gold for buttons */
@@ -34,7 +37,7 @@
         }
         .answer, .explanation {
             display: none;
-            font-size: xx-large;
+            font-size: xx-large; /* Maintains original size for answer and explanation */
             margin-top: 20px;
             border-radius: 5px;
             padding: 10px;
@@ -44,10 +47,7 @@
             background-color: #333; /* Dark background for contrast */
             border: 2px solid #f0e130; /* Border to make the explanation stand out */
         }
-        .question {
-            font-size: 20px; /* or larger, depending on your preference */
-        }
-    </style>
+    </style>    
 </head>
 <body>
     <h2>{{ category }} for ${{ value }}</h2>
