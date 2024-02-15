@@ -82,6 +82,5 @@ def question(category, value):
     question, answer, explanation = categories[category][value]
     return render_template('question.html', category=category, value=value, question=question, answer=answer, explanation=explanation, teams=session['teams'])
 
-
 if __name__ == '__main__':
     app.run(debug=True)
