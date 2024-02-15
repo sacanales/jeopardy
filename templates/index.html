@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <title>Jeopardy Game</title>
     <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
         body {
             font-family: 'Arial', sans-serif; /* Kabel-like fonts are not widely available for web, Arial is a clean alternative */
             background-color: #02075d; /* Deep blue background similar to the Jeopardy! game board */
             color: white;
             display: flex;
+            flex-direction: column; /* Changed to column for footer positioning */
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
+        }
+        .content {
+            flex: 1; /* Allows content to expand and push footer down */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .form-container {
             background-color: #007BFF;
@@ -45,21 +55,33 @@
         input[type="submit"]:hover {
             background-color: #c7b800; /* A darker gold on hover for visual feedback */
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333; /* Dark background for the footer */
+            color: #fff; /* Light text color for contrast */
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <form method="post">
-            <div class="form-group">
-                <label for="team1">Team 1 Name:</label>
-                <input type="text" id="team1" name="team1">
-            </div>
-            <div class="form-group">
-                <label for="team2">Team 2 Name:</label>
-                <input type="text" id="team2" name="team2">
-            </div>
-            <input type="submit" value="Start Game">
-        </form>
+    <div class="content">
+        <div class="form-container">
+            <form method="post">
+                <div class="form-group">
+                    <label for="team1">Team 1 Name:</label>
+                    <input type="text" id="team1" name="team1">
+                </div>
+                <div class="form-group">
+                    <label for="team2">Team 2 Name:</label>
+                    <input type="text" id="team2" name="team2">
+                </div>
+                <input type="submit" value="Start Game">
+            </form>
+        </div>
     </div>
+    <footer>
+        &copy; Steven Canales, DO. All rights reserved.
+    </footer>
 </body>
 </html>

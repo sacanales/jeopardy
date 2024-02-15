@@ -11,6 +11,10 @@
             color: white; /* White text for better readability */
             text-align: center; /* Centering the content */
             padding-top: 50px; /* Adding some padding at the top */
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         h2, .question {
             margin: 20px 0; /* Spacing around the question and header */
@@ -47,6 +51,14 @@
             background-color: #333; /* Dark background for contrast */
             border: 2px solid #f0e130; /* Border to make the explanation stand out */
         }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333; /* Dark background for the footer */
+            color: #fff; /* Light text color for contrast */
+            width: 100%;
+            margin-top: auto; /* Pushes the footer to the bottom */
+        }
     </style>    
 </head>
 <body>
@@ -59,17 +71,20 @@
         <button id="explanationButton" class="button" onclick="showExplanation()" style="display:none;">Explanation</button>
     </div>
     
-    <!-- Corrected placement for the explanation div -->
     <div id="explanation" class="explanation">
         <p>{{ explanation }}</p>
     </div>
 
     <div class="team-buttons">
         {% for team_name, score in teams.items() %}
-            <button class="team-button" onclick="submitForm('{{ team_name }}')">{{ team_name }} Correct</button>
+            <button class="team-button" onclick="submitForm('{{ team_name }}', true)">{{ team_name }} Correct</button>
         {% endfor %}
         <button class="button" onclick="submitForm('Nobody', false)">Nobody Correct</button>
     </div>
+
+    <footer>
+        &copy; Steven Canales, DO. All rights reserved.
+    </footer>
 
     <script>
         function showAnswerAndExplanationButton() {
@@ -85,7 +100,7 @@
             explanationDiv.style.display = 'block'; // Show the explanation content
         }
 
-        function submitForm(teamName) {
+        function submitForm(teamName, correct) {
             var form = document.createElement('form');
             form.method = 'POST';
             form.action = window.location.pathname;
@@ -99,7 +114,7 @@
             var correctInput = document.createElement('input');
             correctInput.type = 'hidden';
             correctInput.name = 'correct';
-            correctInput.value = 'true';
+            correctInput.value = correct ? 'true' : 'false';
             form.appendChild(correctInput);
 
             document.body.appendChild(form);
