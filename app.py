@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, abort
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+SIMPLE_PASSWORD = 'gbsstinks'
 
 # Define categories and questions with explanations
 categories = {
@@ -46,6 +48,10 @@ categories = {
 
 @app.before_request
 def before_request():
+    # Add login check, excluding paths that don't require authentication
+    if not session.get('logged_in') and request.endpoint not in ['login', 'static']:
+        return redirect(url_for('login'))
+
     if request.endpoint == 'game' and 'teams' not in session:
         return redirect(url_for('index'))
     if 'answered_questions' not in session:
@@ -59,6 +65,23 @@ def index():
         session['teams'] = {team1: 0, team2: 0}
         return redirect(url_for('game'))
     return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == SIMPLE_PASSWORD:
+            session['logged_in'] = True
+            return redirect(url_for('index'))
+        else:
+            # Optionally, provide feedback on failed login attempt
+            return "Invalid password, please try again.", 401
+    return '''
+        <form method="post">
+            Password: <input type="password" name="password"><br>
+            <input type="submit" value="Login">
+        </form>
+    '''
 
 @app.route('/game')
 def game():
