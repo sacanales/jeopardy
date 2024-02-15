@@ -4,17 +4,28 @@
     <meta charset="UTF-8">
     <title>Question</title>
     <style>
+        html {
+            height: 100%;
+        }
         body {
+            display: flex;
+            flex-direction: column;
             font-family: 'Arial', sans-serif;
             font-size: xx-large;
             background-color: #02075d; /* Deep Jeopardy blue for the background */
             color: white; /* White text for better readability */
             text-align: center; /* Centering the content */
-            padding-top: 50px; /* Adding some padding at the top */
             margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .content {
+            flex: 1;
+            padding-top: 50px; /* Adding some padding at the top */
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
         }
         h2, .question {
             margin: 20px 0; /* Spacing around the question and header */
@@ -57,29 +68,30 @@
             background-color: #333; /* Dark background for the footer */
             color: #fff; /* Light text color for contrast */
             width: 100%;
-            margin-top: auto; /* Pushes the footer to the bottom */
         }
     </style>    
 </head>
 <body>
-    <h2>{{ category }} for ${{ value }}</h2>
-    <p class="question">{{ question }}</p>
-    <button class="button" onclick="showAnswerAndExplanationButton()">Show Answer</button>
-    
-    <div id="answer" class="answer">
-        <p>{{ answer }}</p>
-        <button id="explanationButton" class="button" onclick="showExplanation()" style="display:none;">Explanation</button>
-    </div>
-    
-    <div id="explanation" class="explanation">
-        <p>{{ explanation }}</p>
-    </div>
+    <div class="content">
+        <h2>{{ category }} for ${{ value }}</h2>
+        <p class="question">{{ question }}</p>
+        <button class="button" onclick="showAnswerAndExplanationButton()">Show Answer</button>
+        
+        <div id="answer" class="answer">
+            <p>{{ answer }}</p>
+            <button id="explanationButton" class="button" onclick="showExplanation()" style="display:none;">Explanation</button>
+        </div>
+        
+        <div id="explanation" class="explanation">
+            <p>{{ explanation }}</p>
+        </div>
 
-    <div class="team-buttons">
-        {% for team_name, score in teams.items() %}
-            <button class="team-button" onclick="submitForm('{{ team_name }}', true)">{{ team_name }} Correct</button>
-        {% endfor %}
-        <button class="button" onclick="submitForm('Nobody', false)">Nobody Correct</button>
+        <div class="team-buttons">
+            {% for team_name, score in teams.items() %}
+                <button class="team-button" onclick="submitForm('{{ team_name }}', true)">{{ team_name }} Correct</button>
+            {% endfor %}
+            <button class="button" onclick="submitForm('Nobody', false)">Nobody Correct</button>
+        </div>
     </div>
 
     <footer>
