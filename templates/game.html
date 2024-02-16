@@ -15,12 +15,15 @@
             justify-content: center; /* Centers content on the y-axis */
             align-items: center; /* Centers content on the x-axis */
             height: 100vh; /* Full viewport height */
+            position: relative;
         }
         .teams {
-            display: flex;
-            justify-content: center;
+            position: absolute; /* Position the teams div absolutely */
+            top: 10%; /* Adjust this value to move the teams div down */
+            left: 50%; /* Start at the halfway point of the screen */
+            transform: translateX(-50%); /* Center the element horizontally */
             font-size: 24px; /* Enlarging the team names and scores */
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Provide some spacing between the scores and the board */
         }
         .team-name {
             margin: 0 20px; /* Spacing between team names and scores */
