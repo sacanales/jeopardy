@@ -10,18 +10,21 @@
             padding: 0;
             background-color: #02075d; /* Deep Jeopardy blue for the background */
             color: white; /* White text for better readability */
+            text-align: center; /* Centering the content */
             display: flex;
             flex-direction: column;
             justify-content: center; /* Centers content on the y-axis */
             align-items: center; /* Centers content on the x-axis */
             height: 100vh; /* Full viewport height */
-            position: relative;
+        }
+        .game-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
         }
         .teams {
-            position: absolute; /* Position the teams div absolutely */
-            top: 10%; /* Adjust this value to move the teams div down */
-            left: 50%; /* Start at the halfway point of the screen */
-            transform: translateX(-50%); /* Center the element horizontally */
             font-size: 24px; /* Enlarging the team names and scores */
             margin-bottom: 20px; /* Provide some spacing between the scores and the board */
         }
@@ -34,7 +37,7 @@
             gap: 10px;
             width: 90%;
             max-width: 1200px; /* Adjust based on your preference */
-            margin: auto; /* Center in the available space */
+            /* margin-top: 20px; Removed to allow flexbox to manage spacing */
         }
         .category {
             display: flex;
@@ -72,37 +75,38 @@
         footer {
             text-align: center;
             padding: 10px;
+            background-color: #333; /* Dark background for the footer */
+            color: #fff; /* Light text color for contrast */
+            width: 100%;
             position: absolute; /* Positioned absolutely relative to the body */
             bottom: 0; /* At the bottom of the page */
             left: 0; /* Spanning from the left */
-            width: 100%; /* Spanning the full width of the page */
-            background-color: #333; /* Dark background for the footer */
-            color: #fff; /* Light text color for contrast */
         }
     </style>
 </head>
 <body>
-    <div class="teams">
-        {% for team, score in teams.items() %}
-        <div class="team-name">{{ team }}: {{ score }}</div>
-        {% endfor %}
-    </div>
-
-    <div class="container">
-        {% for category, questions in categories.items() %}
-        <div class="category">
-            <h3>{{ category }}</h3>
-            {% for value, question in questions.items() %}
-            {% if category ~ "_" ~ value|string not in answered_questions %}
-            <a class="question-value" href="{{ url_for('question', category=category, value=value) }}">${{ value }}</a>
-            {% else %}
-            <span class="question-value answered">${{ value }}</span>
-            {% endif %}
+    <div class="game-wrapper">
+        <div class="teams">
+            {% for team, score in teams.items() %}
+            <div class="team-name">{{ team }}: {{ score }}</div>
             {% endfor %}
         </div>
-        {% endfor %}
-    </div>
 
+        <div class="container">
+            {% for category, questions in categories.items() %}
+            <div class="category">
+                <h3>{{ category }}</h3>
+                {% for value, question in questions.items() %}
+                {% if category ~ "_" ~ value|string not in answered_questions %}
+                <a class="question-value" href="{{ url_for('question', category=category, value=value) }}">${{ value }}</a>
+                {% else %}
+                <span class="question-value answered">${{ value }}</span>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     <footer>
         &copy; Steven Canales, DO. All rights reserved.
     </footer>
